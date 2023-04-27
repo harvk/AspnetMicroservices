@@ -24,8 +24,8 @@ namespace Catalog.API.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<Product>), (int)HttpStatusCode.OK)]
-        public async Task<List<Product>> GetProducts()
+        [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
+        public async Task<IEnumerable<Product>> GetProducts()
         {
             var products = await _repository.GetProducts();
             return products;
@@ -34,7 +34,6 @@ namespace Catalog.API.Controllers
         [HttpGet("{id:length(24)}", Name = "GetProduct")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
-        // must use List<>, IEnumerable<> causes bugs
         public async Task<ActionResult<Product>> GetProductById(string id)
         {
             var product = await _repository.GetProduct(id);
@@ -50,9 +49,8 @@ namespace Catalog.API.Controllers
 
         [Route("[action]/{category}", Name = "GetProductByCategory")]
         [HttpGet]
-        [ProducesResponseType(typeof(List<Product>), (int)HttpStatusCode.OK)]
-        // must use List<>, IEnumerable<> causes bugs
-        public async Task<ActionResult<List<Product>>> GetProductByCategory(string category)
+        [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductByCategory(string category)
         {
             var product = await _repository.GetProductByCategroy(category);
             return Ok(product);

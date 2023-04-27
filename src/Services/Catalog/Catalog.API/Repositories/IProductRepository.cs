@@ -6,10 +6,10 @@ namespace Catalog.API.Repositories
 {
     public interface IProductRepository
     {
-        Task<List<Product>> GetProducts(); // must use List<>, IEnumerable<> causes bugs
+        Task<IEnumerable<Product>> GetProducts();
         Task<Product> GetProduct(string id);
-        Task<List<Product>> GetProductByName(string name);
-        Task<List<Product>> GetProductByCategroy(string categoryName);
+        Task<IEnumerable<Product>> GetProductByName(string name);
+        Task<IEnumerable<Product>> GetProductByCategroy(string categoryName);
         Task CreateProduct(Product product);
         Task<bool> UpdateProduct(Product product);
         Task<bool> DeleteProduct(string id);

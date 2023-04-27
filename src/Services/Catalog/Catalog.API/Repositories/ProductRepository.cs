@@ -39,8 +39,7 @@ namespace Catalog.API.Repositories
                             .FirstOrDefaultAsync();
         }
 
-        // must use List<>, IEnumerable<> causes bugs
-        public async Task<List<Product>> GetProductByCategroy(string categoryName)
+        public async Task<IEnumerable<Product>> GetProductByCategroy(string categoryName)
         {
             FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(p => p.Category, categoryName);
 
@@ -50,8 +49,7 @@ namespace Catalog.API.Repositories
                             .ToListAsync();
         }
 
-        // must use List<>, IEnumerable<> causes bugs
-        public async Task<List<Product>> GetProductByName(string name)
+        public async Task<IEnumerable<Product>> GetProductByName(string name)
         {
             FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(p => p.Name, name);
 
@@ -61,7 +59,7 @@ namespace Catalog.API.Repositories
                             .ToListAsync();
         }
 
-        public async Task<List<Product>> GetProducts()
+        public async Task<IEnumerable<Product>> GetProducts()
         {
             return await _context
                             .Products
